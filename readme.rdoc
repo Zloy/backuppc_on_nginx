@@ -21,9 +21,9 @@ Here is my solution how to get rid of Apache2 in favor of Nginx.
 3. Create a soft link <tt>/etc/nginx/sites-enabled/backuppc</tt> to <tt>/etc/nginx/sites-available/backuppc</tt>
 4. Restart nginx <tt>sudo service nginx restart</tt>
 
-== EXCLUDED FILES
+== Excluded files
 
-I added  backuppc configs in link:etc/backuppc to backup my settings. You may found useful to start defining your excluded files pool from my one:
+I added  backuppc configs to link:etc/backuppc to backup my settings. You may found useful to start defining your excluded files pool on the base of my one:
     $Conf{BackupFilesExclude} = {
       '*' => [
       '/usr/lost+found',
