@@ -1,0 +1,63 @@
+img[http://backuppc.sourceforge.net/images/icons/BackupPC/mid/logo.gif]
+img[http://nginx.org/nginx.gif]
+
+= BackupPC on NGINX
+
+* http://github.com/zloy/backuppc_on_nginx
+* http://nginx.org
+
+
+== DESCRIPTION
+
+This repo contains config file(s) to run BackupPC on Nginx web server. 
+
+I was surprised that BackupPC doesn't support Nginx out of the box and for a while I had to have Apache2 running on my machine next door to Nginx.
+
+Here is my solution how to get rid of Apache2 in favor of Nginx.
+
+== HOW TO USE
+
+1. Comment out lines which starting with auth_basic in etc/nginx/sites-available/backuppc[link:etc/nginx/sites-available/backuppc]. That disables authentication to simplify the first run.
+2. Put  <tt>etc/nginx/sites-available/backuppc</tt> to <tt>/etc/nginx/sites-available/backuppc</tt>. Chown it to root.root 
+3. Create a soft link <tt>/etc/nginx/sites-enabled/backuppc to /etc/nginx/sites-available/backuppc
+4. Restart nginx <tt>sudo service nginx restart</tt>
+
+== EXCLUDED FILES
+
+I added  backuppc configs in etc/backuppc/[link:etc/backuppc] to backup my settings. You may found useful to start defining your excluded files pool from my one:
+<tt>
+$Conf{BackupFilesExclude} = {
+  '*' => [
+    '/usr/lost+found',
+    '/var/run',
+    '/var/games',
+    '/var/spool',
+    '/var/cache',
+    '/var/lock',
+    '/var/tmp',
+    '/var/lost+found',
+    '/var/lib/backuppc',
+    '/var/log',
+    '/backup',
+    '/data',
+    '/dev',
+    '/media',
+    '/mount',
+    '/proc',
+    '/home/*/.mozilla/*/*/Cache',
+    '/home/*/.mozilla/*/*/Cache.Trash',
+    '/lost+found ',
+    '/mnt',
+    '/sys',
+    '/tmp',
+    "/home/*/\x{417}\x{430}\x{433}\x{440}\x{443}\x{437}\x{43a}\x{438}",
+    "/home/*/\x{41c}\x{443}\x{437}\x{44b}\x{43a}\x{430}",
+    '/home/*/tmp',
+    '/home/*/.thumbnails',
+    '/home/*/.rvm',
+    '/home/*/.wine',
+    '/home/*/.PlayOnLinux',
+    '/home/*/.vmware'
+  ]
+};
+</tt>
