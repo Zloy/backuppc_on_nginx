@@ -4,6 +4,7 @@ img[http://nginx.org/nginx.gif]
 = BackupPC hosted on NGINX
 
 * http://github.com/zloy/backuppc_on_nginx
+* http://backuppc.sourceforge.net/
 * http://nginx.org
 
 == Description
