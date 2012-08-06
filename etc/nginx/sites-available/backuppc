@@ -1,1 +1,24 @@
-/etc/nginx/sites-available/backuppc
+server {
+  listen 80;
+  server_name durablis; 
+  access_log /var/log/nginx/backuppc.access_log;
+  error_log  /var/log/nginx/backuppc.error_log;
+
+  root /usr/share/backuppc/cgi-bin;
+
+  location /backuppc {
+    auth_basic "BackupPC admin";
+    auth_basic_user_file /etc/backuppc/htpasswd;
+    alias /usr/share/backuppc/cgi-bin/;
+    index /index.cgi;
+  }
+
+  location  ~\.cgi$ {
+    gzip off;
+    include /etc/nginx/fastcgi_params;
+    fastcgi_pass unix:/var/run/fcgiwrap.socket;
+    fastcgi_index BackupPC_Admin;
+    fastcgi_param SCRIPT_FILENAME /usr/share/backuppc/cgi-bin$fastcgi_script_name;
+  }
+}
+
