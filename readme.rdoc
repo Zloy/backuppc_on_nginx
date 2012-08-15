@@ -59,3 +59,11 @@ I added  backuppc configs to link:etc/backuppc to backup my settings. You may fo
       '/home/*/.vmware'
       ]
     };
+
+== A note about mlocate.updatedb
+
+This program usually starts by cron daily. It indexes all files in your system. It does index all your backup files if you doesn't instruct it not doing so.
+
+To stop mlocate.db messing up with your backups just put the backup partition to /etc/updatedb.conf or mount it temporarily for the time backuppc does its job.
+
+My backups are placed under /backup partition (I know it's not the best  solution in general, but certainly better than not backing up at all in case you have limited internet connection and doesn't have separate HDD). So, I added it to /etc/updatedb.conf <tt>PRUNEPATHS="/tmp /var/spool /media /data /backup"</tt>
