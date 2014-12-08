@@ -1,15 +1,16 @@
 server {
   listen 80;
-  server_name durablis; 
+  server_name yourdomain.tld; 
+
   access_log /var/log/nginx/backuppc.access_log;
   error_log  /var/log/nginx/backuppc.error_log;
 
-  root /usr/share/backuppc/cgi-bin;
 
   location /backuppc {
     auth_basic "BackupPC admin";
     auth_basic_user_file /etc/backuppc/htpasswd;
     alias /usr/share/backuppc/cgi-bin/;
+    root /usr/share/backuppc/cgi-bin;
     index /index.cgi;
   }
 
@@ -21,4 +22,3 @@ server {
     fastcgi_param SCRIPT_FILENAME /usr/share/backuppc/cgi-bin$fastcgi_script_name;
   }
 }
-
