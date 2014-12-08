@@ -18,9 +18,10 @@ Here is my solution how to get rid of Apache2 in favor of Nginx.
 == How to use
 
 1. Comment out lines which starting with auth_basic in {/etc/nginx/sites-available/backuppc}[http://github.com/Zloy/backuppc_on_nginx/blob/master/etc/nginx/sites-available/backuppc]. That disables authentication to simplify the first run.
-2. Put  <tt>etc/nginx/sites-available/backuppc</tt> to <tt>/etc/nginx/sites-available/backuppc</tt>. Chown it to <tt>root.root</tt> 
-3. Create a soft link <tt>/etc/nginx/sites-enabled/backuppc</tt> to <tt>/etc/nginx/sites-available/backuppc</tt>
-4. Restart nginx <tt>sudo service nginx restart</tt>
+2. Put <tt>etc/nginx/sites-available/backuppc</tt> OR <tt>etc/nginx/sites-available/backuppc-ssl</tt> to <tt>/etc/nginx/sites-available/backuppc</tt>. Chown it to <tt>root.root</tt> 
+3. Replace every occurence of <tt>yourdomain.tld</tt> with your actual domain name. If you choose the SSL-vhost replace the bogus paths to certificate, key and dhparams to your actual ones. 
+4. Create a soft link <tt>/etc/nginx/sites-enabled/backuppc</tt> to <tt>/etc/nginx/sites-available/backuppc</tt>
+5. Restart nginx <tt>sudo service nginx restart</tt>
 
 == Excluded files
 
