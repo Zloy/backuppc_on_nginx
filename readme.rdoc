@@ -13,7 +13,7 @@ This repo contains config file(s) to run BackupPC on Nginx web server.
 
 I was surprised that BackupPC doesn't support Nginx out of the box and for a while I had to have Apache2 running on my machine next door to Nginx.
 
-Here is my solution how to get rid of Apache2 in favor of Nginx.
+Here is my solution how to get rid of Apache2 in favor of Nginx.  Note you will need <code>fcgiwrap</code> with this to handle the FastCGI processing.
 
 == How to use
 
