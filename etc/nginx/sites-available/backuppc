@@ -1,18 +1,47 @@
 server {
   listen 80;
-  server_name yourdomain.tld; 
+  listen [::]:80;
+  server_name yourname.tld;
 
-  access_log /var/log/nginx/backuppc.access_log;
-  error_log  /var/log/nginx/backuppc.error_log;
+  ##############
+  # Enable SSL #
+  ##############
 
+  #listen 443 ssl;
+  #listen [::]:443 ssl;
+  #ssl_certificate /etc/nginx/SSL/server.crt;
+  #ssl_certificate_key /etc/nginx/SSL/server.key;
 
-  location /backuppc {
-    auth_basic "BackupPC admin";
-    auth_basic_user_file /etc/backuppc/htpasswd;
-    alias /usr/share/backuppc/cgi-bin/;
-    root /usr/share/backuppc/cgi-bin;
-    index /index.cgi;
-  }
+  #############
+  # Force SSL #
+  #############
+
+  #add_header Strict-Transport-Security max-age=63072000;
+  #if ($scheme != "https") {
+  #  rewrite ^ https://$host$uri permanent;
+  #}
+
+  ##########################
+  # Extra security headers #
+  ##########################
+
+  add_header X-Frame-Options DENY;
+  add_header X-Content-Type-Options nosniff;
+
+  ##################
+  # Authentication #
+  ##################
+
+  auth_basic "BackupPC admin";
+  auth_basic_user_file /etc/backuppc/htpasswd;
+
+  ###################
+  # Server settings #
+  ###################
+
+  root /usr/share/backuppc/cgi-bin;
+
+  index /index.cgi;
 
   location  ~\.cgi$ {
     gzip off;
